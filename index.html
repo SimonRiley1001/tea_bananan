@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>TapConnect — Networking made simple</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A4%9D%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="logo">🤝 TapConnect</h1>
+    <p class="tagline">Swap socials with a scan — no typing, no awkwardness.</p>
+  </header>
+
+  <nav class="tabbar">
+    <button class="tab-btn active" data-tab="card">My Card</button>
+    <button class="tab-btn" data-tab="scan">Scan</button>
+    <button class="tab-btn" data-tab="contacts">Contacts</button>
+  </nav>
+
+  <main>
+    <!-- ============ MY CARD ============ -->
+    <section id="tab-card" class="tab-panel active">
+      <div class="card">
+        <h2>Your digital card</h2>
+        <p class="muted">Fill this in once. Show your QR code to anyone you meet — they scan it, and your links land in their contacts. You control exactly what you share.</p>
+
+        <form id="profile-form" autocomplete="off">
+          <label>Name
+            <input type="text" id="p-name" placeholder="e.g. Ada Lovelace" maxlength="60" />
+          </label>
+          <label>Headline <span class="opt">(optional)</span>
+            <input type="text" id="p-headline" placeholder="e.g. Product designer @ Startup" maxlength="80" />
+          </label>
+
+          <div class="socials-grid">
+            <label>Instagram
+              <input type="text" id="s-instagram" placeholder="@username" maxlength="40" />
+            </label>
+            <label>X / Twitter
+              <input type="text" id="s-x" placeholder="@username" maxlength="40" />
+            </label>
+            <label>LinkedIn
+              <input type="text" id="s-linkedin" placeholder="profile url or username" maxlength="120" />
+            </label>
+            <label>TikTok
+              <input type="text" id="s-tiktok" placeholder="@username" maxlength="40" />
+            </label>
+            <label>WhatsApp
+              <input type="text" id="s-whatsapp" placeholder="phone e.g. +234..." maxlength="30" />
+            </label>
+            <label>Email
+              <input type="email" id="s-email" placeholder="you@example.com" maxlength="80" />
+            </label>
+            <label>Website
+              <input type="text" id="s-website" placeholder="https://..." maxlength="120" />
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary">Save & generate my QR</button>
+        </form>
+      </div>
+
+      <div id="qr-wrap" class="card qr-card hidden">
+        <h2 id="qr-name">Your QR code</h2>
+        <p id="qr-headline" class="muted"></p>
+        <div id="qrcode" class="qr-box"></div>
+        <p class="muted small">Let someone point their camera / the Scan tab at this.</p>
+        <button id="edit-btn" class="btn-ghost">Edit my card</button>
+      </div>
+    </section>
+
+    <!-- ============ SCAN ============ -->
+    <section id="tab-scan" class="tab-panel">
+      <div class="card">
+        <h2>Scan a code</h2>
+        <p class="muted">Point your camera at someone's TapConnect QR to save their socials.</p>
+        <div id="scan-area">
+          <video id="video" playsinline></video>
+          <div class="scan-frame"></div>
+        </div>
+        <button id="start-scan" class="btn-primary">Start camera</button>
+        <button id="stop-scan" class="btn-ghost hidden">Stop camera</button>
+        <p id="scan-status" class="muted small"></p>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTS ============ -->
+    <section id="tab-contacts" class="tab-panel">
+      <div class="card">
+        <h2>Contacts <span id="contact-count" class="pill">0</span></h2>
+        <p class="muted">Everyone you've connected with. Stored only on this device.</p>
+        <div id="contacts-list"></div>
+        <p id="contacts-empty" class="muted small">No contacts yet — scan someone's card to get started.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="vendor/qrcode.min.js"></script>
+  <script src="vendor/jsQR.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
